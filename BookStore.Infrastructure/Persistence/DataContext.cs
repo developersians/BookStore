@@ -11,14 +11,17 @@ namespace BookStore.Infrastructure.Persistence
 {
     public class DataContext : DbContext
     {
+        public DataContext()
+        {
+        }
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new BookConfiguration());
         }
 
         public DbSet<Book> Books { get; set; }

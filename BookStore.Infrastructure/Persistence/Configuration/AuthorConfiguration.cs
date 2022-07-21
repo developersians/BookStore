@@ -14,8 +14,16 @@ namespace BookStore.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<Author> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn();
             builder.Property(x => x.Name)
                 .IsRequired();
+
+            builder.HasData(
+                Author.GetInstance("Leo Tolstoy", 1),
+                Author.GetInstance("Anne Frank", 2)
+                );
         }
     }
 }

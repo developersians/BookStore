@@ -15,6 +15,9 @@ namespace BookStore.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<Book> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn();
             builder.Property(x => x.Name)
                 .IsRequired();
             builder.HasOne(x => x.Author)
@@ -22,8 +25,8 @@ namespace BookStore.Infrastructure.Persistence.Configuration
                 .HasForeignKey(x => x.AuthorId);
 
             builder.HasData(
-                Book.GetInstance("War and Peace", BookGenre.Fiction, Author.GetInstance("Leo Tolstoy"), Convert.ToDateTime(1867)),
-                Book.GetInstance("The Diary of a Young Girl", BookGenre.NonFiction, Author.GetInstance("Anne Frank"), Convert.ToDateTime(1947))
+                Book.GetInstance("War and Peace", BookGenre.Fiction, 1, Convert.ToDateTime("1867/01/01"), 1),
+                Book.GetInstance("The Diary of a Young Girl", BookGenre.NonFiction, 2, Convert.ToDateTime("1947/01/01"), 2)
                 );
         }
     }

@@ -20,6 +20,17 @@ namespace BookStore.Domain.Entities
 
         public virtual Author Author { get; private set; }
 
+        public static Book GetInstance(string name, BookGenre genre, int authorId, DateTime publishedDate, int id = 0)
+        {
+            return new Book()
+            {
+                Id = id,
+                Name = name,
+                Genre = genre,
+                AuthorId = authorId,
+                PublishedDate = publishedDate
+            };
+        }
         public static Book GetInstance(string name, BookGenre genre, Author author, DateTime publishedDate, int id = 0)
         {
             return new Book()
@@ -27,6 +38,7 @@ namespace BookStore.Domain.Entities
                 Id = id,
                 Name = name,
                 Genre = genre,
+                AuthorId = author.Id,
                 Author = author,
                 PublishedDate = publishedDate
             };
