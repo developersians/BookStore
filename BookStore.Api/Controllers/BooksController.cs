@@ -1,4 +1,5 @@
-﻿using BookStore.Application.Aggregates.Books.Queries.GetBookById;
+﻿using BookStore.Application.Aggregates.Books.Commands.CreateBook;
+using BookStore.Application.Aggregates.Books.Queries.GetBookById;
 using BookStore.Application.Aggregates.Books.Queries.GetBooks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,14 @@ namespace BookStore.Api.Controllers
         {
             var query = new GetBookByIdQuery(id);
             var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBook([FromBody] CreateBookCommand request)
+        {
+            var command = new CreateBookCommand(request.Name, request.Genre, request.PublishedDate, request.AuthorId);
+            var response = await _mediator.Send(command);
             return Ok(response);
         }
     }

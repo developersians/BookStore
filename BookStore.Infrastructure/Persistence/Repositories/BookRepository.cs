@@ -1,5 +1,5 @@
 ﻿using BookStore.Domain.Entities;
-using BookStore.Domain.Interfaces;
+using BookStore.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Infrastructure.Persistence
+namespace BookStore.Infrastructure.Persistence.Repositories
 {
     public class BookRepository : IBookRepository
     {
@@ -37,9 +37,11 @@ namespace BookStore.Infrastructure.Persistence
         #endregion Query side
 
         #region Command side
-        public Task<Book> AddAsync(Book entity)
+        public async Task<Book> AddAsync(Book entity)
         {
-            throw new NotImplementedException();
+            await _context.Books.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
         public Task UpdateAsync(Book entity)
         {

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BookStore.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Domain.Interfaces
+namespace BookStore.Domain.Repositories
 {
     public interface ICommandRepository<T> where T : EntityBase, IAggregateRoot
     {

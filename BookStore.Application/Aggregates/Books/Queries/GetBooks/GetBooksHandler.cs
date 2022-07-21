@@ -1,5 +1,5 @@
 ﻿using BookStore.Common.Contracts;
-using BookStore.Domain.Interfaces;
+using BookStore.Domain.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;

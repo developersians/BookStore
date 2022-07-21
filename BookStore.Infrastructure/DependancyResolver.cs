@@ -1,5 +1,8 @@
-﻿using BookStore.Domain.Interfaces;
+﻿using BookStore.Domain.Repositories;
+using BookStore.Domain.Services;
 using BookStore.Infrastructure.Persistence;
+using BookStore.Infrastructure.Persistence.Repositories;
+using BookStore.Infrastructure.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +19,7 @@ namespace BookStore.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("FintranetConnectionString"));
             });
             services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IAuthorDomainService, AuthorDomainService>();
 
             return services;
         }

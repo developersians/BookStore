@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Domain.Interfaces
+namespace BookStore.Domain.Repositories
 {
-    public interface IBookRepository : IRepository<Book>
+    public interface IAuthorRepository : IQueryRepository<Author>, ICommandRepository<Author>
     {
     }
 }
