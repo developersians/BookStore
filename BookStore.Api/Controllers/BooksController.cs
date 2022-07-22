@@ -29,6 +29,9 @@ namespace BookStore.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            if (id <= 0)
+                return BadRequest();
+
             var query = new GetBookByIdQuery(id);
             var response = await _mediator.Send(query);
             return Ok(response);

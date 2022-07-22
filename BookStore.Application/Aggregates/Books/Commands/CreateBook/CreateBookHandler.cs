@@ -16,18 +16,24 @@ namespace BookStore.Application.Aggregates.Books.Commands.CreateBook
     {
         private readonly IBookRepository _bookRepository;
         private readonly IAuthorDomainService _authorDomainService;
+        private readonly IBookDomainService _bookDomainService;
 
-        public CreateBookHandler(IBookRepository bookRepository, IAuthorDomainService authorDomainService)
+        public CreateBookHandler(IBookRepository bookRepository, IAuthorDomainService authorDomainService, IBookDomainService bookDomainService)
         {
             _bookRepository = bookRepository;
             _authorDomainService = authorDomainService;
+            _bookDomainService = bookDomainService;
         }
 
         public async Task<BookResponse> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
+            //Guards
             var authorExists = await _authorDomainService.IsExist(request.AuthorId);
             if (!authorExists)
                 throw new ArgumentException("Author is not exist!");
+            var bookNameIsUnique = await _bookDomainService.IsNameUnique(request.Name);
+            if (!bookNameIsUnique)
+                throw new ArgumentException("Book name must be unique.");
 
             var entity = Book.GetInstance(request.Name, (BookGenre)request.Genre, request.AuthorId, request.PublishedDate);
             var result = await _bookRepository.AddAsync(entity);

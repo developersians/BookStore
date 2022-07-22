@@ -28,11 +28,11 @@ namespace BookStore.Infrastructure.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Book> GetByIdAsync(int id)
+        public async Task<Book?> GetByIdAsync(int id)
         {
             return await _context.Books
                 .Include(x => x.Author)
-                .FirstAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
         #endregion Query side
 

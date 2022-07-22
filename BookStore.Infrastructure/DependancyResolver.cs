@@ -20,6 +20,7 @@ namespace BookStore.Infrastructure
             });
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IAuthorDomainService, AuthorDomainService>();
+            services.AddTransient<IBookDomainService, BookDomainService>();
 
             return services;
         }

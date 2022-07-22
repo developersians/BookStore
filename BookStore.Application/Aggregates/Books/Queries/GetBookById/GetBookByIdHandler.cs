@@ -21,6 +21,10 @@ namespace BookStore.Application.Aggregates.Books.Queries.GetBookById
         public async Task<BookResponse> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await _bookRepository.GetByIdAsync(request.Id);
+
+            if (result == null)
+                throw new ApplicationException();
+
             return new BookResponse()
             {
                 Id = result.Id,

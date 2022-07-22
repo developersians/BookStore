@@ -9,6 +9,6 @@ namespace BookStore.Domain.Repositories
     public interface IQueryRepository<T> where T : EntityBase
     {
         Task<List<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(int id);
     }
 }
